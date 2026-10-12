@@ -1,0 +1,50 @@
+# SalesTalk MCP: PostgreSQL seeded with a fictional Gulf trading company.
+#   docker compose up -d                  -> database only (use `uv run salestalk-mcp` for Claude Desktop)
+#   docker compose --profile http up -d   -> database + MCP server over streamable HTTP on :8765
+name: salestalk
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: salestalk-db
+    command: ["postgres", "-c", "timezone=${SALESTALK_TZ:-Asia/Dubai}"]
+    environment:
+      POSTGRES_DB: salestalk
+      POSTGRES_USER: ${POSTGRES_ADMIN_USER:-salestalk_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:-change_me_admin}
+      SALESTALK_RO_USER: ${SALESTALK_RO_USER:-salestalk_ro}
+      SALESTALK_RO_PASSWORD: ${SALESTALK_RO_PASSWORD:-salestalk_ro_password}
+      TZ: ${SALESTALK_TZ:-Asia/Dubai}
+    ports:
+      - "127.0.0.1:${SALESTALK_DB_PORT:-5433}:5432"
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # -h 127.0.0.1: the temporary server used while seeding only listens on a socket,
+      # so this turns healthy only after schema + seed + role are done.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+    restart: unless-stopped
+
+  mcp-http:
+    profiles: ["http"]
+    build: .
+    image: salestalk-mcp:latest
+    container_name: salestalk-mcp-http
+    environment:
+      SALESTALK_DATABASE_URL: postgresql://${SALESTALK_RO_USER:-salestalk_ro}:${SALESTALK_RO_PASSWORD:-salestalk_ro_password}@db:5432/salestalk
+      SALESTALK_MAX_ROWS: ${SALESTALK_MAX_ROWS:-500}
+      SALESTALK_STATEMENT_TIMEOUT_MS: ${SALESTALK_STATEMENT_TIMEOUT_MS:-5000}
+    command: ["--transport", "streamable-http", "--host", "0.0.0.0", "--port", "8765"]
+    ports:
+      - "127.0.0.1:8765:8765"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:

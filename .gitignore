@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local tooling caches
+.uv-cache/
+.cache/
+.tmp/
+
+# Secrets / local config
+.env
+*.local.json
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local non-Docker Postgres (see README)
+.pgdata/
+.pgdata.log
+
+# Crash dumps from Git Bash on Windows
+*.stackdump

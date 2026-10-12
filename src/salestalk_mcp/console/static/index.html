@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SalesTalk Console</title>
+  <meta name="description" content="SalesTalk Console: the same MCP tools Claude uses. Ask the Dune &amp; Dhow sales database questions and watch every real MCP tool call, JSON-RPC frame and safety check.">
+  <meta name="theme-color" content="#0C0E1A">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/space-grotesk-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/instrument-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/geist-mono-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="console.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+<svg width="0" height="0" class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-shield-x" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m14.5 9.5-5 5"/><path d="m9.5 9.5 5 5"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></symbol>
+    <symbol id="i-bars" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M7 16h8"/><path d="M7 11h12"/><path d="M7 6h3"/></symbol>
+    <symbol id="i-line" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-user-minus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="m7.5 4.27 9 5.15"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M8 14h3"/><path d="M13 18h3"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><path d="M10 2h4"/><path d="M12 14l3-3"/><circle cx="12" cy="14" r="8"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></symbol>
+    <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></symbol>
+    <symbol id="i-split" viewBox="0 0 24 24"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-rows" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M21 9H3"/><path d="M21 15H3"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.52.85l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path class="fill" d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 32 32"><path class="logo-line" d="M9 21.5 16 10l8 9.5"/><path class="logo-line" d="M9 21.5h15"/><circle class="logo-dot" cx="16" cy="10" r="3.4"/><circle class="logo-dot" cx="9" cy="21.5" r="2.6"/><circle class="logo-dot" cx="24" cy="19.5" r="2.6"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#playground">Skip to the playground</a>
+
+<header class="site-header" id="top">
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="SalesTalk Console, back to top">
+      <span class="brand-mark"><svg><use href="#i-logo"/></svg></span>
+      <span class="brand-name">SalesTalk <span>Console</span></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#playground">Ask</a>
+      <a href="#flow">Flow</a>
+      <a href="#break">Safety</a>
+      <a href="#tools">Tools</a>
+    </nav>
+    <div class="header-end">
+      <span class="conn" id="conn" data-state="connecting" title="MCP session status">
+        <span class="conn-dot"></span><span class="conn-text">Connecting over stdio</span>
+      </span>
+      <a class="btn btn-small btn-primary" href="https://github.com/engrhasnain/salestalk-mcp" target="_blank" rel="noopener">
+        <svg class="ic"><use href="#i-github"/></svg><span>Code</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============================================================ HERO -->
+  <section class="hero band-ink" id="hero" data-loop>
+    <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="constellation-overlay" id="hero-overlay" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow-pill" data-reveal><span class="pulse-dot"></span><span>SalesTalk Console · the same MCP tools Claude uses</span></p>
+        <h1 class="hero-title" data-reveal style="--i:1">
+          <span>Ask your sales data.</span>
+          <span class="accent">See every tool call.</span>
+        </h1>
+        <p class="hero-sub" data-reveal style="--i:2">
+          SalesTalk is a read-only MCP server over PostgreSQL. This console talks to it over
+          <strong>real MCP</strong> (stdio, JSON-RPC) and shows exactly what Claude sees: the tool, the
+          arguments, the frames and the answer.
+        </p>
+        <div class="hero-ctas" data-reveal style="--i:3">
+          <a class="btn btn-primary btn-large" href="#playground"><span>Ask a question</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost btn-large" href="#break"><svg class="ic"><use href="#i-shield"/></svg><span>Try to break it</span></a>
+        </div>
+        <dl class="hero-stats" id="hero-stats" data-reveal style="--i:4">
+          <div><dt>Customers</dt><dd data-stat="customers">–</dd></div>
+          <div><dt>Products</dt><dd data-stat="products">–</dd></div>
+          <div><dt>Orders</dt><dd data-stat="orders">–</dd></div>
+          <div><dt>Months covered</dt><dd data-stat="months">–</dd></div>
+          <div><dt>MCP tools</dt><dd data-stat="tools">–</dd></div>
+        </dl>
+        <p class="hero-source" data-reveal style="--i:5">Every number above came from MCP tool calls made when this page loaded.</p>
+      </div>
+
+      <div class="hero-stage" id="hero-stage">
+        <div class="hero-map" id="hero-map"></div>
+        <div class="feed" id="feed" aria-live="polite" data-reveal style="--i:3">
+          <div class="feed-head">
+            <span class="mono-label">Live tool calls</span>
+            <span class="feed-state"><span class="pulse-dot"></span><span id="feed-state">stdio</span></span>
+          </div>
+          <div class="feed-body" id="feed-body">
+            <div class="feed-item is-loading">
+              <div class="feed-meta"><span class="chip chip-muted">CALLING</span><span class="mono">opening the MCP session</span></div>
+              <p class="feed-tool">list_tables</p>
+              <p class="feed-args">waiting for the first results</p>
+            </div>
+          </div>
+          <div class="feed-foot">
+            <div class="feed-dashes" id="feed-dashes" role="group" aria-label="Tool calls made at load"></div>
+            <span class="mono feed-count" id="feed-count">00/00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ PLAYGROUND -->
+  <section class="section band-paper" id="playground" data-loop>
+    <div class="wrap">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow" data-reveal>Ask SalesTalk</p>
+          <h2 data-reveal style="--i:1">Pick a question. <span class="accent-text">Watch the exact tool call.</span></h2>
+          <p class="lead" data-reveal style="--i:2">Each question runs the tool Claude would choose, over the same MCP session, against the seeded
+            Dune &amp; Dhow database. The result, the latency and the JSON-RPC frames are all real.</p>
+        </div>
+        <aside class="honest" data-reveal style="--i:3">
+          <span class="honest-icon"><svg class="ic"><use href="#i-chat"/></svg></span>
+          <div>
+            <p class="honest-title">No language model in this console</p>
+            <p>In Claude, the model picks the tool. Here you can see exactly what it calls.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="play-grid">
+        <div class="play-left">
+          <div class="questions" id="questions" role="group" aria-label="Example questions"></div>
+
+          <form class="anytool" id="anytool" data-reveal autocomplete="off">
+            <div class="anytool-head">
+              <span class="mono-label">Or call any tool</span>
+              <span class="mono anytool-note">fields come from the tool's input schema</span>
+            </div>
+            <div class="tool-picker" id="tool-picker" role="group" aria-label="Tool"></div>
+            <p class="tool-picker-desc" id="tool-picker-desc"></p>
+            <div class="fields" id="fields"></div>
+            <button class="btn btn-primary btn-block" type="submit" id="anytool-submit">
+              <svg class="ic"><use href="#i-play"/></svg><span>Call <span id="anytool-name">tool</span></span>
+            </button>
+          </form>
+        </div>
+
+        <div class="play-right">
+          <article class="console" id="console" aria-label="Tool call console">
+            <div class="strip" id="strip">
+              <canvas class="strip-canvas" id="strip-canvas" aria-hidden="true"></canvas>
+              <div class="constellation-overlay" id="strip-overlay" aria-hidden="true"></div>
+              <div class="strip-copy">
+                <div class="strip-top">
+                  <span class="mono-label on-ink">Question</span>
+                  <span class="chip chip-ink" id="console-status">READY</span>
+                </div>
+                <p class="strip-question" id="console-question">Choose a question to run a real tool call.</p>
+                <div class="callchip" id="callchip">
+                  <span class="callchip-caret">›</span>
+                  <code class="callchip-code" id="callchip-code">waiting for a call</code>
+                  <span class="callchip-cursor" aria-hidden="true"></span>
+                </div>
+                <div class="strip-metrics">
+                  <span><span class="mono-label on-ink">Latency</span><b class="mono" id="metric-latency">–</b></span>
+                  <span><span class="mono-label on-ink">Frames</span><b class="mono" id="metric-frames">–</b></span>
+                  <span><span class="mono-label on-ink">Bytes</span><b class="mono" id="metric-bytes">–</b></span>
+                </div>
+              </div>
+              <div class="strip-map" id="strip-map">
+                <span class="mono-label on-ink map-label">Data map · 4 cities · <span id="map-customers">320</span> customers</span>
+              </div>
+            </div>
+
+            <div class="sqlbox" id="sqlbox" hidden>
+              <span class="mono-label">SQL sent to run_sql</span>
+              <pre class="sql" id="sqlbox-code"></pre>
+            </div>
+
+            <div class="result" id="result">
+              <div class="result-empty">
+                <div class="empty-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+                <p>Results render here as a table, a bar chart or a line chart, straight from the tool's JSON.</p>
+              </div>
+            </div>
+
+            <div class="frames" id="frames">
+              <button class="frames-head" id="frames-toggle" type="button" aria-expanded="true" aria-controls="frames-body">
+                <span class="frames-title"><svg class="ic"><use href="#i-code"/></svg><span class="mono-label on-ink">JSON-RPC frames · stdio</span></span>
+                <span class="mono frames-meta" id="frames-meta">no call yet</span>
+                <svg class="ic chev"><use href="#i-chevron"/></svg>
+              </button>
+              <div class="frames-body" id="frames-body">
+                <p class="frames-empty mono">The exact messages written to the server's stdin and read from its stdout appear here.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ FLOW -->
+  <section class="section band-white" id="flow" data-loop>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>How one question flows</p>
+        <h2 data-reveal style="--i:1">From a question in Claude to a read-only query, <span class="accent-text">and back.</span></h2>
+        <p class="lead" data-reveal style="--i:2">Every call made on this page replays here: the pulse goes out with the request and comes back
+          with the response. A refused call stops at the layer that refused it.</p>
+      </div>
+
+      <div class="flow-card" id="flow-card" data-reveal style="--i:3">
+        <canvas class="flow-canvas" id="flow-canvas" aria-hidden="true"></canvas>
+        <div class="flow-grid" id="flow-grid">
+          <div class="fnode" data-node="client"><span class="fnode-icon"><svg class="ic"><use href="#i-chat"/></svg></span><b>Claude</b><span class="mono">or this console</span><span class="fnode-state"></span></div>
+          <div class="fnode" data-node="mcp"><span class="fnode-icon"><svg class="ic"><use href="#i-plug"/></svg></span><b>MCP · stdio</b><span class="mono">JSON-RPC 2.0</span><span class="fnode-state"></span></div>
+          <div class="fnode" data-node="server"><span class="fnode-icon"><svg class="ic"><use href="#i-server"/></svg></span><b>SalesTalk tools</b><span class="mono">6 tools · Python</span><span class="fnode-state"></span></div>
+          <div class="fnode-pair">
+            <div class="fnode" data-node="range"><span class="fnode-icon"><svg class="ic"><use href="#i-calendar"/></svg></span><b>Range parser</b><span class="mono">last_month → dates</span><span class="fnode-state"></span></div>
+            <div class="fnode" data-node="guard"><span class="fnode-icon"><svg class="ic"><use href="#i-shield"/></svg></span><b>SQL guard</b><span class="mono">one SELECT only</span><span class="fnode-state"></span></div>
+          </div>
+          <div class="fnode" data-node="db"><span class="fnode-icon"><svg class="ic"><use href="#i-layers"/></svg></span><b>DB layer</b><span class="mono">READ ONLY · 5 s · cap</span><span class="fnode-state"></span></div>
+          <div class="fnode" data-node="pg"><span class="fnode-icon"><svg class="ic"><use href="#i-database"/></svg></span><b>PostgreSQL</b><span class="mono">role salestalk_ro</span><span class="fnode-state"></span></div>
+        </div>
+        <div class="flow-bar">
+          <div class="flow-bar-call">
+            <span class="mono-label" id="flow-label">Replays every call</span>
+            <code class="flow-code" id="flow-code">waiting for the first call on this page</code>
+          </div>
+          <ol class="flow-path" id="flow-path" aria-label="Path of the last call"></ol>
+          <div class="flow-bar-end">
+            <span class="mono flow-latency" id="flow-latency"></span>
+            <button class="btn btn-small btn-outline" type="button" id="flow-replay"><svg class="ic"><use href="#i-replay"/></svg><span>Replay</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ BREAK IT -->
+  <section class="section band-paper" id="break" data-loop>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>Try to break it</p>
+        <h2 data-reveal style="--i:1">Every write is refused. <span class="accent-text">Usually twice over.</span></h2>
+        <p class="lead" data-reveal style="--i:2">Each card sends a real <code>run_sql</code> call. The stack on the right shows which safety layer
+          stopped it, with the server's own error text.</p>
+      </div>
+      <div class="break-grid">
+        <div class="attacks" id="attacks"></div>
+        <aside class="stack" id="stack" aria-label="Safety layers">
+          <div class="stack-head">
+            <span class="mono-label on-ink">Safety stack · run_sql</span>
+            <span class="chip chip-ink" id="stack-status">IDLE</span>
+          </div>
+          <ol class="stack-list" id="stack-list">
+            <li class="layer" data-layer="entry"><span class="layer-node"><svg class="ic"><use href="#i-terminal"/></svg></span><div><b>run_sql(query)</b><span>tools/call arrives over stdio</span></div></li>
+            <li class="layer" data-layer="guard"><span class="layer-node"><svg class="ic"><use href="#i-shield"/></svg></span><div><b>SQL guard</b><span>one SELECT, no write keywords, no risky functions</span></div></li>
+            <li class="layer" data-layer="cap"><span class="layer-node"><svg class="ic"><use href="#i-rows"/></svg></span><div><b>Row cap</b><span>wrapped as SELECT * FROM (…) LIMIT n+1</span></div></li>
+            <li class="layer" data-layer="session"><span class="layer-node"><svg class="ic"><use href="#i-lock"/></svg></span><div><b>Read-only transaction</b><span>BEGIN READ ONLY, always rolled back</span></div></li>
+            <li class="layer" data-layer="prepared"><span class="layer-node"><svg class="ic"><use href="#i-split"/></svg></span><div><b>One statement</b><span>server-side prepared statement</span></div></li>
+            <li class="layer" data-layer="role"><span class="layer-node"><svg class="ic"><use href="#i-key"/></svg></span><div><b>Read-only role</b><span>salestalk_ro: SELECT only</span></div></li>
+            <li class="layer" data-layer="timeout"><span class="layer-node"><svg class="ic"><use href="#i-timer"/></svg></span><div><b>Statement timeout</b><span>cancelled after 5 s</span></div></li>
+            <li class="layer" data-layer="pg"><span class="layer-node"><svg class="ic"><use href="#i-database"/></svg></span><div><b>PostgreSQL</b><span>rows come back as JSON</span></div></li>
+          </ol>
+          <div class="stack-line" aria-hidden="true"><span class="stack-fill"></span><span class="stack-head-dot"></span></div>
+          <div class="verdict" id="verdict">
+            <p class="mono verdict-title" id="verdict-title">Pick an attack and run it.</p>
+            <p class="verdict-text" id="verdict-text">The verdict and the server's exact error text appear here.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ TOOLS -->
+  <section class="section band-white" id="tools" data-loop>
+    <div class="wrap">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow" data-reveal>Tools reference</p>
+          <h2 data-reveal style="--i:1">Six tools, <span class="accent-text">read straight from tools/list.</span></h2>
+          <p class="lead" data-reveal style="--i:2">These cards are rendered from the server's own <code>tools/list</code> answer: the same titles,
+            descriptions, input schemas and annotations Claude reads before it picks a tool.</p>
+        </div>
+        <div class="session-card" id="session-card" data-reveal style="--i:3">
+          <span class="mono-label">Session</span>
+          <dl>
+            <div><dt>Server</dt><dd class="mono" id="sess-server">–</dd></div>
+            <div><dt>Protocol</dt><dd class="mono" id="sess-protocol">–</dd></div>
+            <div><dt>Transport</dt><dd class="mono" id="sess-transport">–</dd></div>
+            <div><dt>Frames seen</dt><dd class="mono" id="sess-frames">–</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="tool-cards" id="tool-cards"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA -->
+  <section class="section band-paper cta-section" data-loop>
+    <div class="wrap">
+      <div class="cta" id="cta">
+        <canvas class="cta-canvas" id="cta-canvas" aria-hidden="true"></canvas>
+        <div class="cta-copy">
+          <p class="eyebrow on-ink">Custom MCP servers</p>
+          <h2>Want this for <span class="accent-ink">your own data?</span></h2>
+          <p>SalesTalk is a portfolio demo of my Fiverr service "I will build a custom MCP server". The same pattern connects
+            Claude to your PostgreSQL or MySQL database, CRM, ERP or internal API: read-only by default, clear tools,
+            a Docker setup and a console like this one.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-large" href="https://www.fiverr.com/s/X00B44k" target="_blank" rel="noopener"><span>Order on Fiverr</span><svg class="ic"><use href="#i-arrow-up-right"/></svg></a>
+            <a class="btn btn-ghost btn-large" href="https://github.com/engrhasnain/salestalk-mcp" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg><span>Read the code</span></a>
+          </div>
+        </div>
+        <div class="cta-stage" id="cta-stage">
+          <span class="sys" data-sys="0" style="--x:8%;--y:16%">PostgreSQL</span>
+          <span class="sys" data-sys="1" style="--x:4%;--y:44%">MySQL</span>
+          <span class="sys" data-sys="2" style="--x:12%;--y:72%">CRM</span>
+          <span class="sys" data-sys="3" style="--x:36%;--y:88%">ERP</span>
+          <span class="sys" data-sys="4" style="--x:34%;--y:6%">REST API</span>
+          <span class="sys sys-core" data-core style="--x:52%;--y:47%">Your MCP server</span>
+          <span class="sys sys-claude" data-claude style="--x:88%;--y:47%">Claude</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer band-ink">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#top"><span class="brand-mark"><svg><use href="#i-logo"/></svg></span><span class="brand-name">SalesTalk <span>Console</span></span></a>
+      <p>SalesTalk Console · the same MCP tools Claude uses. A read-only MCP server over PostgreSQL, with a console
+        that shows every call.</p>
+    </div>
+    <div>
+      <p class="mono-label on-ink">Console</p>
+      <ul>
+        <li><a href="#playground">Ask SalesTalk</a></li>
+        <li><a href="#flow">How one question flows</a></li>
+        <li><a href="#break">Try to break it</a></li>
+        <li><a href="#tools">Tools reference</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="mono-label on-ink">Project</p>
+      <ul>
+        <li><a href="https://github.com/engrhasnain/salestalk-mcp" target="_blank" rel="noopener">GitHub repository</a></li>
+        <li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a></li>
+        <li><a href="https://www.fiverr.com/s/X00B44k" target="_blank" rel="noopener">Custom MCP server on Fiverr</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="mono-label on-ink">Data</p>
+      <p class="footer-note">Dune &amp; Dhow Trading Co. is fictional. Every company, person and number in the demo database is made up.</p>
+      <p class="mono footer-session" id="footer-session">MCP · stdio</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span class="mono">MIT © 2026 Muhammad Hasnain Pirzada</span>
+      <span class="mono">No model in the loop: questions map to tool calls.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
